@@ -1,25 +1,10 @@
-var d = document.getElementById("dibujito");
-var lienzo = d.getContext("2d");
-var lineas = 30;
-var l = 0;
-var c = 300
-var yi, xf, xi, yf;
+var dibujo = document.getElementById("dibujito");
+var texto = document.getElementById("textoLineas");
+var boton = document.getElementById("botonE");
+var lienzo = dibujo.getContext("2d");
+var ancho = dibujo.width;
 
-dibujarLinea("black", 1, 1, 1, 299);
-dibujarLinea("black", 1, 299, 299, 299);
-dibujarLinea("black", 299, 1, 299, 299);
-dibujarLinea("black", 1, 1, 299, 1);
-
-while(l < lineas)
-{
-    yi = 10 * l;
-    xf = 10 * (l + 1);
-    dibujarLinea("#AAF", 0, yi, xf, 300);
-    xi = 10 * l;
-    yf = 10 * (l + 1);
-    dibujarLinea("#AAF", xi, 0, 300, yf);
-    l++;
-}
+boton.addEventListener("click", dibujarClick);
 
 function dibujarLinea(color, xinicial, yinicial, xfinal, yfinal)
 {
@@ -29,4 +14,28 @@ function dibujarLinea(color, xinicial, yinicial, xfinal, yfinal)
 	lienzo.lineTo (xfinal, yfinal);
 	lienzo.stroke();
 	lienzo.closePath();
+}
+
+function dibujarClick()
+{ 
+    var lineas = parseInt(texto.value);
+    var l = 0;
+    var yi, xf, xi, yf;
+    var espacio = ancho / lineas;
+
+    dibujarLinea("black", 1, 1, 1, 299);
+    dibujarLinea("black", 1, 299, 299, 299);
+    dibujarLinea("black", 299, 1, 299, 299);
+    dibujarLinea("black", 1, 1, 299, 1);
+
+    while(l < lineas)
+    {
+        yi = espacio * l;
+        xf = espacio * (l + 1);
+        dibujarLinea("#AAF", 0, yi, xf, 300);
+        xi = espacio * l;
+        yf = espacio * (l + 1);
+        dibujarLinea("#AAF", xi, 0, 300, yf);
+        l++;
+    }
 }
